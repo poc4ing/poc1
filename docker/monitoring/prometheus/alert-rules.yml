@@ -1,0 +1,30 @@
+groups:
+  - name: kyoe-ing-mortgage-alerts
+    rules:
+      - alert: MortgageServiceDown
+        expr: up{job="kyoe-ing-mortgage"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "kyoe-ing-mortgage instance is down"
+          description: "No metrics scraped from {{ $labels.instance }} for more than 1 minute."
+
+      - alert: HighServerErrorRate
+        expr: sum(rate(http_server_requests_seconds_count{job="kyoe-ing-mortgage",status=~"5.."}[5m])) > 0.5
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Elevated HTTP 5xx rate on kyoe-ing-mortgage"
+          description: "5xx request rate exceeded 0.5 req/s over the last 5 minutes."
+
+      - alert: HighJvmHeapUsage
+        expr: sum(jvm_memory_used_bytes{job="kyoe-ing-mortgage",area="heap"}) / sum(jvm_memory_max_bytes{job="kyoe-ing-mortgage",area="heap"}) > 0.85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High JVM heap usage on kyoe-ing-mortgage"
+          description: "JVM heap usage has been above 85% for 5 minutes."
+

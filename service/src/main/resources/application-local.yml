@@ -1,0 +1,12 @@
+spring:
+  config:
+    import: >
+      optional:classpath:application-rest.yml,
+      optional:classpath:application-local.yml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+    register-with-eureka: false
+    fetch-registry: false

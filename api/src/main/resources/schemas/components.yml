@@ -1,0 +1,124 @@
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    RateDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        maturityPeriod:
+          type: integer
+          format: int32
+          minimum: 1
+        interestRate:
+          type: number
+          format: double
+          minimum: 0
+        lastUpdate:
+          type: string
+          format: date-time
+      required:
+        - id
+        - maturityPeriod
+        - interestRate
+        - lastUpdate
+
+    PageRateDto:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateDto'
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        empty:
+          type: boolean
+      required:
+        - content
+        - totalElements
+        - totalPages
+        - size
+        - number
+
+    MortgageCheckRequestDto:
+      type: object
+      properties:
+        income:
+          type: number
+          format: double
+          minimum: 0
+        maturityPeriod:
+          type: integer
+          format: int32
+          minimum: 1
+        loanValue:
+          type: number
+          format: double
+          minimum: 0
+        homeValue:
+          type: number
+          format: double
+          minimum: 0
+      required:
+        - income
+        - maturityPeriod
+        - loanValue
+        - homeValue
+
+    MortgageCheckResponseDto:
+      type: object
+      properties:
+        feasible:
+          type: boolean
+        monthlyCosts:
+          type: number
+          format: double
+      required:
+        - feasible
+        - monthlyCosts
+
+    ProblemDetailDto:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        code:
+          type: string
+        timestamp:
+          type: string
+          format: date-time

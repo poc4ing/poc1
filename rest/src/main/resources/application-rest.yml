@@ -1,0 +1,48 @@
+server:
+  port: ${SERVER_PORT:8080}
+  forward-headers-strategy: native
+  shutdown: graceful
+
+spring:
+  application:
+    name: kyoe-ing-mortgage
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  datasource:
+    url: ${MORTGAGE_DB_URL:jdbc:h2:mem:mortgagedb;DB_CLOSE_DELAY=-1}
+    driver-class-name: ${MORTGAGE_DB_DRIVER:org.h2.Driver}
+    username: ${MORTGAGE_DB_USER:sa}
+    password: ${MORTGAGE_DB_PASSWORD:}
+  jpa:
+    defer-datasource-initialization: true
+    open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics,jolokia,caches
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+    jolokia:
+      enabled: true
+    caches:
+      enabled: true
+  jmx:
+    exposure:
+      include: "*"
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+  dynatrace:
+    metrics:
+      export:
+        enabled: ${DYNATRACE_METRICS_ENABLED:false}
+
+mortgage:
+  security:
+    api-key: ${MORTGAGE_API_KEY:ing-mortgage-local-key}

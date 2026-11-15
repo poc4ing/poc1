@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: ${MORTGAGE_DB_URL:jdbc:h2:mem:mortgagedb_int;DB_CLOSE_DELAY=-1}
+    driver-class-name: ${MORTGAGE_DB_DRIVER:org.h2.Driver}
+    username: ${MORTGAGE_DB_USER:sa}
+    password: ${MORTGAGE_DB_PASSWORD:}
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  sql:
+    init:
+      mode: always
+  h2:
+    console:
+      enabled: false
+
+mortgage:
+  security:
+    api-key: ${MORTGAGE_API_KEY:ing-mortgage-int-key}
+
+logging:
+  level:
+    es.kyoe.ing.mortgage: INFO
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+    register-with-eureka: ${EUREKA_REGISTER:false}
+    fetch-registry: false

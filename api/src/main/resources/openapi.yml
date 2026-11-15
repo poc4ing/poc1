@@ -1,0 +1,79 @@
+openapi: 3.0.3
+info:
+  title: Mortgage Service API
+  version: 1.0.0
+
+tags:
+  - name: rates
+  - name: mortgageCheck
+
+servers:
+  - url: /api
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      $ref: './schemas/components.yml#/components/securitySchemes/ApiKeyAuth'
+
+paths:
+  /v1/rates:
+    get:
+      tags:
+        - rates
+      summary: List interest rates
+      operationId: getRates
+      x-spring-paginated: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/PageRateDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/ProblemDetailDto'
+
+  /v1/mortgage-check:
+    post:
+      tags:
+        - mortgageCheck
+      summary: Check mortgage feasibility and monthly cost
+      operationId: checkMortgage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/components.yml#/components/schemas/MortgageCheckRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/MortgageCheckResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            application/problem+json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/ProblemDetailDto'
+        '401':
+          description: Unauthorized
+          content:
+            application/problem+json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/ProblemDetailDto'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/problem+json:
+              schema:
+                $ref: './schemas/components.yml#/components/schemas/ProblemDetailDto'

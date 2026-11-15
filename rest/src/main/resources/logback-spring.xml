@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/app.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+
+    <!-- Web (MVC/servlet) -->
+    <logger name="org.springframework.web" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+
+    </logger>
+
+    <!-- Apache HttpClient (si lo usas) -->
+    <logger name="org.apache.http" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <!-- Wire logs: cuerpo y cabeceras bajo nivel -->
+    <logger name="org.apache.http.wire" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Reactor Netty (para WebClient) -->
+    <logger name="reactor.netty.http.client" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="reactor.netty.http.server" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Tomcat/Servlet container -->
+    <logger name="org.apache.catalina" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.apache.coyote.http11" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.dynatrace.metrics" level="ERROR" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="i.m.dynatrace.v2.DynatraceExporterV2" level="OFF" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="c.d.m.util.MetricLineBuilderImpl" level="OFF" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="o.s.aop.framework" level="OFF" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger name="com.dynatrace.metrics" level="ERROR"/>
+
+    <logger name="org.apache.coyote.http11" level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+
+
+
+
+
+</configuration>
