@@ -1,0 +1,21 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:pkc-e8mp5.eu-west-1.aws.confluent.cloud:9092}
+    properties:
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: "org.apache.kafka.common.security.plain.PlainLoginModule required username='C3QGOFRAA3TTDWET' password='cfltLm0BYdvbv1fj8ehazhZc85nHeXPwAU2+BrDNy5so9HN5wKZged7oDtGe64+Q';"
+      security.protocol: SASL_SSL
+      session.timeout.ms: 45000
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+        max.block.ms: 3000
+
+client:
+  id: ${CLIENT_ID:ccloud-test-client-${random.uuid}}
+
+sc:
+  pulse:
+    switches-events: sc.pulse.switches-events

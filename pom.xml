@@ -100,6 +100,16 @@
             </dependency>
             <dependency>
                 <groupId>es.kyoe.ing.poc1</groupId>
+                <artifactId>kyoe-ing-mortgage-llm</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.kyoe.ing.poc1</groupId>
+                <artifactId>kyoe-ing-mortgage-mcp</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>es.kyoe.ing.poc1</groupId>
                 <artifactId>kyoe-ing-mortgage-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -183,6 +193,8 @@
         <module>persistency-mock</module>
         <module>h2</module>
         <module>rest</module>
+        <module>mcp</module>
+        <module>llm</module>
         <module>service</module>
     </modules>
 
